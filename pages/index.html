@@ -1,0 +1,78 @@
+<html>
+<head
+
+    <title>
+        <font size = "10" color = "red">
+        <div align="center">Создай свой опрос</div>
+    </font> <br> <br>
+    </title>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+ <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+</head>
+<body text = "silver" bgcolor = "black">
+
+
+   <div align = "center">
+     <input type="text" id="nazv" placeholder="Название опроса">
+       </div>
+       <br>
+       <br>
+       <div align = "center">
+ <div id="buttons">
+   <ol>
+     <div class="variant">
+         <li>   <input type="text" id="variant1" placeholder="Вариант ответа№1">
+     </div>
+      <br>
+
+     <div class="variant">
+         <li>    <input type="text" id="variant2" placeholder="Вариант ответа№2">
+     </div>
+      <br>
+
+      <div class="variant">
+          <li>    <input type="text" id="variant3" placeholder="Вариант ответа№3">
+      </div>
+       <br>
+
+      <div class="variant">
+          <li>   <input type="text" id="variant4" placeholder="Вариант ответа№4">
+      </div>
+   </ol>
+ </div>
+   <br>
+   <br>
+   <br>
+
+ <div>
+    <input type="button" value="Создать" id="Send" onclick="Send()">
+ </div>
+   </div>
+    <script>
+        function Send()
+        {
+            var req = new XMLHttpRequest();
+            req.open('POST', '/createVoting', true);
+            req.send(createData());
+        };
+
+        function createData()
+        {
+            var data = [];
+
+            data.push({'nazv': $('#nazv').val()});
+            var variants = [];
+            $('input', '#buttons').each(function(index, item)
+                                      {
+                                        variants.push(item.value);
+
+                                      });
+
+            data.push({'variants': variants});
+
+            return JSON.stringify(data);
+        }
+    </script>
+</body>
+</html>
